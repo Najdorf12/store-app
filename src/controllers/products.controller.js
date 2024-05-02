@@ -25,26 +25,6 @@ export const getProduct = async (req, res) => {
   res.json(product);
 };
 
-export const getProductByCategory = async (req, res) => {
-  const category = req.params.categoryName;
-  const products = await Product.find();
-  const productsFilter = products.filter(
-    (product) => product.category === category
-  );
-  if (!productsFilter)
-    return res.status(404).json({ message: "Product not found" });
-  res.json(productsFilter);
-};
-export const getProductByName = async (req, res) => {
-  const name = req.params.name;
-  const products = await Product.find();
-  const productsFilter = products.filter((product) => product.name === name);
-  if (!productsFilter)
-    return res.status(404).json({ message: "Products not found" });
-
-  res.json(productsFilter);
-};
-
 export const deleteProduct = async (req, res) => {
   const product = await Product.findByIdAndDelete(req.params.id);
   if (!product) return res.status(404).json({ message: "Product not found" });
@@ -57,4 +37,26 @@ export const updateProduct = async (req, res) => {
   });
   if (!product) return res.status(404).json({ message: "Product not found" });
   res.json(product);
+};
+
+
+export const getProductByCategory = async (req, res) => {
+  const category = req.params.categoryName;
+  const products = await Product.find();
+  const productsFilter = products.filter(
+    (product) => product.category === category
+  );
+  if (!productsFilter)
+    return res.status(404).json({ message: "Product not found" });
+  res.json(productsFilter);
+};
+
+export const getProductByName = async (req, res) => {
+  const name = req.params.name;
+  const products = await Product.find();
+  const productsFilter = products.filter((product) => product.name === name);
+  if (!productsFilter)
+    return res.status(404).json({ message: "Products not found" });
+
+  res.json(productsFilter);
 };

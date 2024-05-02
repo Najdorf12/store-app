@@ -1,23 +1,31 @@
 import imgProduct from "/images/Jupiter1.jpeg";
 import imgHome4 from "/home4.png";
-/* import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux"; */
-/* import { getProductDetailThunk } from "../store/slices/products"; */
-const ProductDetail = () => {
-  
-/*   const product = useSelector(state => state.products);
-  const dispatch= useDispatch()
-  const { id } = useParams();
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-  useEffect(()=>{
-   dispatch(getProductDetailThunk(id)) 
-  },[])
- */
+const ProductDetail = () => {
+  const { id } = useParams();
+  const [productDetail, setProductDetail] = useState({});
+  
+ 
+
+  const getProductDetail = () => {
+    axios
+    .get(`http://localhost:3000/api/products/${id}`)
+    .then((res) =>setProductDetail(res.data))
+    .catch((error) => console.error(error))
+  };
+
+  useEffect(() => {
+    getProductDetail()
+    
+  }, []);
+
   return (
     <>
-      <section className="overflow-hidden relative w-full bg-[rgb(0,0,0)] flex flex-col justify-center items-center gap-4 pt-24 pb-56 lg:p-0 md:flex-row lg:h-screen">
-        <article className=" z-50 flex flex-col justify-center items-center px-3 pb-12 max-w-[420px] md:items-start">
+      <section className="overflow-hidden relative w-full bg-[rgb(0,0,0)] flex flex-col justify-center items-center gap-4 pt-28 pb-56 lg:p-0 md:flex-row lg:h-screen">
+        <article className=" z-50 flex flex-col justify-center items-center px-3 pb-12 max-w-[450px] md:items-start md:pl-6">
           <h2
             style={{
               WebkitTextFillColor: "transparent",
@@ -25,23 +33,22 @@ const ProductDetail = () => {
             }}
             className="text-4xl text-center md:text-start tracking-[.3rem] font-text font-semibold text-zinc-400 sm:text-5xl lg:text-6xl lg:tracking-[.4rem]"
           >
-            LOREM IMPSUM
+            {productDetail.name}
           </h2>
           <p
             className="mt-8 text-base font-text2 font-medium  text-zinc-300 text-center sm:text-lg  md:text-start md:leading-6
           lg:text-lg lg:mt-10"
           >
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Consequatur quam iure vitae!
+            {productDetail.description}
           </p>
           <div className="w-[100%] mt-6  h-[1px] bg-[#dbf01f] self-start lg:mt-8"></div>
 
           <div
             id="price"
-            className="flex justify-between items-center gap-12 mt-10"
+            className="flex justify-between items-center gap-6  lg:gap-12 mt-10"
           >
-            <span className="font-text text-3xl text-zinc-100  lg:text-4xl lg:font-bold tracking-wider">
-              $ 100
+            <span className="font-text text-3xl text-zinc-100  xl:text-4xl lg:font-bold tracking-wider">
+            $ {productDetail.price}
             </span>
             <button
               className="w-[140px] bg-zinc-800 h-[40px]  font-text flex items-center text-[#dbf01f]
@@ -54,7 +61,7 @@ const ProductDetail = () => {
 
         <picture className="w-[80%] lg:w-[40%] z-30 flex items-center justify-center">
           <img
-            className="w-full max-w-96 rounded-xl md:max-w-[420px] shadow-md shadow-zinc-400"
+            className="w-full max-w-96 rounded-xl lg:max-w-[420px] shadow-md shadow-zinc-400"
             src={imgProduct}
             alt=""
           />

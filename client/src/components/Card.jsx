@@ -2,7 +2,8 @@ import imgStore from "/images/Jupiter.jpeg";
 import { Link } from "react-router-dom";
 
 const Card = ({ data }) => {
-  const { name, description, price } = data;
+  
+  const { _id, name, description, price } = data;
 
 
   return (
@@ -27,7 +28,7 @@ const Card = ({ data }) => {
           <div id="price" className="flex justify-between items-center ">
             <span className="font-text text-3xl text-gray-200"> { price }</span>
             <div className="flex gap-3">
-              <Link to="/products/:id">
+              <Link to={`/products/${_id}`}>
                 <button className="text-5xl text-[#dbf01f] hover:scale-110 hover:rotate-45 duration-500">
                   <i className="bx bxs-right-arrow-circle"></i>
                 </button>

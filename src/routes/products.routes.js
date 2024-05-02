@@ -16,10 +16,13 @@ const router = Router();
 
 router.get("/", getProducts);
 router.get("/:id", getProduct);
-router.get("/category/:categoryName", getProductByCategory)
-router.get("/leaked/:name", getProductByName)
+
 router.post("/", authRequired, validateSchema(createProductSchema), createProduct);
 router.put("/:id", authRequired, updateProduct);
 router.delete("/:id", authRequired, deleteProduct);
+
+router.get("/category/:categoryName", getProductByCategory)
+router.get("/leaked/:name", getProductByName)
+
 
 export default router;

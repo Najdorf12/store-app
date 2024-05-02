@@ -39,5 +39,14 @@ export const getProductsByNameThunk = (name) => (dispatch) => {
     .finally(() => dispatch(setIsLoading(false)));
 };
 
+export const getProductDetailThunk = (id) => (dispatch) => {
+  dispatch(setIsLoading(true));
+  axios
+    .get(`http://localhost:3000/api/products/${id}`)
+    .then((res) => dispatch(setProducts(res.data)))
+    .catch((error) => console.error(error))
+    .finally(() => dispatch(setIsLoading(false)));
+};
+
 export const { setProducts } = productsSlice.actions;
 export default productsSlice.reducer;
