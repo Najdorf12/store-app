@@ -2,32 +2,31 @@ import imgProduct from "/images/Jupiter1.jpeg";
 import imgHome4 from "/home4.png";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getProductsByCategoryThunk } from "../store/slices/products";
 import axios from "axios";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [productDetail, setProductDetail] = useState({});
-  const user = useSelector(state => state.user);
-  console.log(user)
+  const user = useSelector((state) => state.user);
   const allProducts = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
   useEffect(() => {
     getProductDetail();
+    console.log(user);
   }, []);
 
   const getProductDetail = () => {
     axios
       .get(`http://localhost:3000/api/products/${id}`)
-      .then((res) =>{
-         setProductDetail(res.data);
-         dispatch(getProductsByCategoryThunk(res.data.category));
-        })
+      .then((res) => {
+        setProductDetail(res.data);
+        dispatch(getProductsByCategoryThunk(res.data.category));
+      })
       .catch((error) => console.error(error));
   };
-
 
   return (
     <>
@@ -67,28 +66,35 @@ const ProductDetail = () => {
               </button>
             </div>
           </div>
-            <button
-              className="w-[140px] bg-zinc-800 h-[40px] mt-6 font-text flex items-center text-[#dbf01f]
+          <button
+            className="w-[140px] bg-zinc-800 h-[40px] mt-6 font-text flex items-center text-[#dbf01f]
         text-lg font-normal justify-center rounded-xl cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-[#dbf01f]  before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-xl hover:before:left-0 hover:text-zinc-900 lg:text-2xl lg:w-[180px]"
-            >
-              Add to cart
-            </button>
-            
-            <section className="flex justify-center items-center mt-14 lg:mt-20 gap-1">
-             <p className="text-lg font-semibold leading-6 text-gray-200 lg:text-xl">Similar Products</p>
-              {
-                allProducts.map((product) => (
-                  <div className="flex flex-wrap items-center justify-center gap-2">
-                  <picture className="">
-                    <img className="max-w-12 rounded-sm" src={imgProduct} alt="" />
-                  </picture>
-                 <h2 className="text-base text-gray-200">{product.name}</h2> 
-                 </div>
-                ))
-              }
-            </section>
+          >
+            Add to cart
+          </button>
+
+          <section className="flex justify-center items-center mt-14 lg:mt-20 gap-1">
+            <p className="text-lg font-semibold leading-6 text-gray-200 lg:text-xl">
+              Similar Products
+            </p>
+            {allProducts.map((product, i) => (
+              <div
+                key={i}
+                className="flex flex-wrap items-center justify-center gap-2"
+              >
+                <picture className="">
+                  <img
+                    className="max-w-12 rounded-sm"
+                    src={imgProduct}
+                    alt=""
+                  />
+                </picture>
+                <h2 className="text-base text-gray-200">{product.name}</h2>
+              </div>
+            ))}
+          </section>
         </article>
-       
+
         <picture className="w-[80%] lg:w-[40%] z-30 flex items-center justify-center">
           <img
             className="w-full max-w-96 rounded-xl lg:max-w-[420px] shadow-md shadow-zinc-400"

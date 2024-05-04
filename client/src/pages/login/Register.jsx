@@ -45,8 +45,8 @@ const Register = () => {
      
         <form onSubmit={handleSubmit(submit)} className="form">
         {registerError.map((error, i) => (
-          <div className="absolute bg-red-500 text-white text-base p-1 top-0 right-0 mr-1 rounded-md mt-6 lg:text-lg lg:mr-3">
-            <p key={i}>{error}</p>
+          <div key={i} className="absolute bg-red-500 text-white text-base p-1 top-0 right-0 mr-1 rounded-md mt-16 lg:text-lg lg:-right-80">
+            <p >{error}</p>
           </div>
         ))}
           <p className="title">Register </p>

@@ -5,17 +5,20 @@ import imgLogo from "/home4.png";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { userThunk } from "../../store/slices/user";
+import { useState } from "react";
+
 
 const Login = () => {
+  const [loginError, setLoginError] = useState([]);
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const submit = (data) => {
     axios
       .post("http://localhost:3000/api/auth/login", data)
@@ -24,8 +27,8 @@ const Login = () => {
         navigate("/");
       })
       .catch((error) => {
-        console.error(error);   
-        });
+        setLoginError(error.response.data);
+      });
   };
 
   return (
@@ -38,6 +41,12 @@ const Login = () => {
           onSubmit={handleSubmit(submit)}
           className="form lg:w-[580px] lg:gap-7 lg:px-8"
         >
+          {loginError.map((error, i) => (
+            <div key={i} className="absolute bg-red-500 text-white text-base p-1 top-0 right-0 mr-1 rounded-md mt-12 lg:text-lg lg:-right-80">
+              <p > {error} </p>
+            </div>
+          ))}
+
           <p className="title">Login </p>
           <p className="message">Signup now and get full access to our app. </p>
           <label className="relative">
