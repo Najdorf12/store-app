@@ -2,7 +2,7 @@ import imgLogo from "/home4.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 import Cookies from "js-cookie";
 import { userThunk } from "../../store/slices/user";
@@ -20,6 +20,15 @@ const Register = () => {
 
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (registerError.length > 0) {
+      const timer = setTimeout(() => {
+        setRegisterError([]);
+      }, 4000);
+      return ()=> clearTimeout(timer)
+    }
+  }, [registerError]);
 
   const dispatch = useDispatch();
 

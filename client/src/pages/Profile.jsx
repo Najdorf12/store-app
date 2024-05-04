@@ -4,7 +4,8 @@ import axios from "axios";
 const Profile = () => {
     
     useEffect(()=>{
-      axios.get("http://localhost:3000/api/auth/profile")
+      axios
+        .get("http://localhost:3000/api/auth/profile")
         .then(res =>console.log(res.data))
         .catch(error => console.error(error))
     },[])

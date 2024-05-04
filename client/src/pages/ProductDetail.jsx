@@ -31,7 +31,7 @@ const ProductDetail = () => {
   return (
     <>
       <section className="overflow-hidden relative w-full bg-[rgb(0,0,0)] flex flex-col justify-center items-center gap-4 pt-28 pb-56 lg:gap-0 lg:p-0 md:flex-row lg:h-screen">
-        <article className=" bg-red-500 z-50 flex flex-col justify-center items-center px-3 max-w-[450px] md:items-start md:pl-6">
+        <article className=" z-50 flex flex-col justify-center items-center px-3 max-w-[450px] md:items-start md:pl-6">
           <h2
             style={{
               WebkitTextFillColor: "transparent",

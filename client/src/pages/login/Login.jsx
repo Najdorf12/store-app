@@ -5,8 +5,7 @@ import imgLogo from "/home4.png";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { userThunk } from "../../store/slices/user";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 
 const Login = () => {
   const [loginError, setLoginError] = useState([]);
@@ -18,6 +17,15 @@ const Login = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (loginError.length > 0) {
+      const timer = setTimeout(() => {
+        setLoginError([]);
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [loginError]);
 
   const submit = (data) => {
     axios
@@ -42,8 +50,11 @@ const Login = () => {
           className="form lg:w-[580px] lg:gap-7 lg:px-8"
         >
           {loginError.map((error, i) => (
-            <div key={i} className="absolute bg-red-500 text-white text-base p-1 top-0 right-0 mr-1 rounded-md mt-12 lg:text-lg lg:-right-80">
-              <p > {error} </p>
+            <div
+              key={i}
+              className="absolute bg-red-500 text-white text-base p-1 top-0 right-0 mr-1 rounded-md mt-12 lg:text-lg lg:-right-80"
+            >
+              <p> {error} </p>
             </div>
           ))}
 

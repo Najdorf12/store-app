@@ -1,3 +1,4 @@
+
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
@@ -5,8 +6,9 @@ import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
 import Profile from "./pages/Profile";
 import Loader from "./components/Loading";
+import FormProduct from "./pages/FormProduct";
+import ProtectedRoutes from "./pages/ProtectedRoutes";
 import { useSelector } from "react-redux";
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -20,10 +22,13 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/products/:id" element={<ProductDetail />} />
-        <Route path="/profile" element={<Profile/>} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/products/admin" element={<FormProduct/>} />
+        </Route>
       </Routes>
 
-      { isLoading && <Loader /> }
+      {isLoading && <Loader />}
     </BrowserRouter>
   );
 };
