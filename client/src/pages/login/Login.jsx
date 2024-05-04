@@ -1,25 +1,33 @@
 import "./login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import imgLogo from "/home4.png";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { userThunk } from "../../store/slices/user";
 
 const Login = () => {
-  const { handleSubmit, register, formState:{ errors } } = useForm();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
+  
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
   const submit = (data) => {
-    console.log(data);
-    /*  axios
-         .post("https://e-commerce-api-v2.academlo.tech/api/v1/users/login",data)
-         .then(resp => {
-            localStorage.setItem("token", resp.data.token)
-            navigate("/")
-         })
-         .catch(error =>{
-            console.error(error)
-            if(error.response.status === 401){
-                alert("Necesitas estar registrado")
-            }
-         }) */
+    axios
+      .post("http://localhost:3000/api/auth/login", data)
+      .then((res) => {
+        dispatch(userThunk(res.data));
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error(error);   
+        });
   };
+
   return (
     <>
       <main className="bg-[#000000] w-full flex justify-center items-center pt-24 pb-36 min-h-screen relative lg:h-screen lg:pt-44">
@@ -38,15 +46,18 @@ const Login = () => {
               placeholder=""
               type="email"
               className="input"
-              {...register("email", { 
-                required:{
+              {...register("email", {
+                required: {
                   value: true,
-                  message: "Email is required"
-                } 
+                  message: "Email is required",
+                },
               })}
             />
             <span>Email</span>
-            <p className="error absolute right-0 top-0 m-2 text-base font-semibold text-red-700 "> {errors.email?.message} </p>
+            <p className="error absolute right-0 top-0 m-2 text-base font-semibold text-red-700 ">
+              {" "}
+              {errors.email?.message}{" "}
+            </p>
           </label>
 
           <label className="relative">
@@ -55,15 +66,18 @@ const Login = () => {
               placeholder=""
               type="password"
               className="input"
-              {...register("password",{
-                required:{
-                  value:true,
-                  message:"Password is required"
-                }
+              {...register("password", {
+                required: {
+                  value: true,
+                  message: "Password is required",
+                },
               })}
             />
             <span>Password</span>
-            <p className="error absolute right-0 top-0 m-2 text-base font-semibold text-red-700 "> {errors.password?.message} </p> 
+            <p className="error absolute right-0 top-0 m-2 text-base font-semibold text-red-700 ">
+              {" "}
+              {errors.password?.message}{" "}
+            </p>
           </label>
           <button type="submit" className="submit">
             Submit

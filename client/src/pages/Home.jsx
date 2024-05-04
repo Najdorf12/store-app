@@ -2,9 +2,14 @@ import imgHome from "/home4.png";
 import About from "./About";
 import Store from "./Store";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+
+  const user = useSelector(state => state.user);
+  console.log(user)
   
+
 
   return (
     <>

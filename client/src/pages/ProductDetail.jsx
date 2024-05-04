@@ -9,7 +9,8 @@ import axios from "axios";
 const ProductDetail = () => {
   const { id } = useParams();
   const [productDetail, setProductDetail] = useState({});
-  
+  const user = useSelector(state => state.user);
+  console.log(user)
   const allProducts = useSelector((state) => state.products);
   const dispatch = useDispatch();
 

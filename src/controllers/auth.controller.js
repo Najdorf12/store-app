@@ -9,7 +9,7 @@ export const register = async (req, res) => {
 
   try {
     const userFound = await User.findOne({ email })
-    if (userFound) return res.status(400).json({message : "The email already exist"})
+    if (userFound) return res.status(400).json(["The email already exist"])
 
     const passwordHash = await bycrypt.hash(password, 10);
     const newCart = new Cart({
@@ -26,14 +26,14 @@ export const register = async (req, res) => {
     const cartSaved = await newCart.save();
 
     const token = await createAccessToken({ id: userSaved._id });
-
+    
     res.cookie("token", token);
     res.json({
       id: userSaved._id,
       username: userSaved.username,
       email: userSaved.email,
       cart: cartSaved._id,
-    });
+    }); 
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -54,8 +54,8 @@ export const login = async (req, res) => {
       });
 
     const token = await createAccessToken({ id: userFound._id });
-
     res.cookie("token", token);
+    
     res.json({
       id: userFound._id,
       username: userFound.username,

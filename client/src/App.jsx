@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
 import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
+import Profile from "./pages/Profile";
 import Loader from "./components/Loading";
 import { useSelector } from "react-redux";
 
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/profile" element={<Profile/>} />
       </Routes>
 
       { isLoading && <Loader /> }
