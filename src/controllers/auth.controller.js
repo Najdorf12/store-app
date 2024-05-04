@@ -33,6 +33,7 @@ export const register = async (req, res) => {
       username: userSaved.username,
       email: userSaved.email,
       cart: cartSaved._id,
+      isAuthenticated: true
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -44,11 +45,11 @@ export const login = async (req, res) => {
 
   try {
     const userFound = await User.findOne({ email }).populate("cart");
-    if (!userFound) return res.status(400).json(["User not found"]);
+    if (!userFound) return res.status(400).json(["Invalid credentials"]);
 
     const isMatch = await bycrypt.compare(password, userFound.password);
 
-    if (!isMatch) return res.status(400).json(["Invalid credentials"]);
+    if (!isMatch) return res.status(400).json(["Invalid credentials."]);
 
     const token = await createAccessToken({ id: userFound._id });
     res.cookie("token", token);
@@ -58,6 +59,7 @@ export const login = async (req, res) => {
       username: userFound.username,
       email: userFound.email,
       cart: userFound.cart,
+      isAuthenticated: true,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
