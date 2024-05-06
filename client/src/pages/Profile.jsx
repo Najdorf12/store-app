@@ -1,19 +1,25 @@
 import { useEffect } from "react";
-import axios from "axios";
+import axios from "../api/axios";
+import { useSelector, useDispatch } from "react-redux";
 
 const Profile = () => {
-    
-    useEffect(()=>{
-      axios
-        .get("http://localhost:3000/api/auth/profile")
-        .then(res =>console.log(res.data))
-        .catch(error => console.error(error))
-    },[])
+  const isAuthenticated = useSelector((state) => state.isAuthenticated);
+  const dispatch = useDispatch();
+  console.log(isAuthenticated)
 
-    return(
-        <>
-            <h2>PROFILE</h2>
-        </>
-    )
-}
+  useEffect(() => {
+    if (isAuthenticated) {
+      axios
+        .get("/auth/profile")
+        .then((res) => console.log(res))
+        .catch((error) => console.error(error));
+    }
+  }, []);
+
+  return (
+    <>
+      <h2>PROFILE</h2>
+    </>
+  );
+};
 export default Profile;

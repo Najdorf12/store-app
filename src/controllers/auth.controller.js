@@ -33,7 +33,6 @@ export const register = async (req, res) => {
       username: userSaved.username,
       email: userSaved.email,
       cart: cartSaved._id,
-      isAuthenticated: true
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -59,7 +58,6 @@ export const login = async (req, res) => {
       username: userFound.username,
       email: userFound.email,
       cart: userFound.cart,
-      isAuthenticated: true,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

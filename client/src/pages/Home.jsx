@@ -6,7 +6,10 @@ import { useSelector } from "react-redux";
 
 const Home = () => {
 
-  
+  const isAuthenticated = useSelector(state => state.isAuthenticated)
+  useEffect(()=> {
+    console.log(isAuthenticated)
+  },[])
   return (
     <>
       <section

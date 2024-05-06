@@ -1,7 +1,7 @@
 import imgLogo from "/home4.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import axios from "../../api/axios";
 import { useState,useEffect } from "react";
 
 import Cookies from "js-cookie";
@@ -34,9 +34,10 @@ const Register = () => {
 
   const submit = (data) => {
     axios
-      .post("http://localhost:3000/api/auth/register", data)
+      .post("/auth/register", data)
       .then((res) => {
         dispatch(userThunk(res.data));
+        dispatch(setIsAuthenticated(true));
         navigate("/");
       })
       .catch((error) => {

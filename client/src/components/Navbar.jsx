@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 const Navbar = () => {
   const [active, setActive] = useState(false);
-  const user = useSelector((state) => state.user);
+  const isAuthenticated = useSelector((state) => state.isAuthenticated);
 
   return (
     <>
@@ -14,10 +14,12 @@ const Navbar = () => {
           <Link to={"/"}>
             <li>Home</li>
           </Link>
-          <Link to={"/profile"}>
-            <li>Profile</li>
-          </Link>
-          {!user.isAuthenticated && (
+          {isAuthenticated && (
+            <Link to={"/profile"}>
+              <li>Profile</li>
+            </Link>
+          )}
+          {!isAuthenticated && (
             <>
               <Link to={"/login"}>
                 <li>Login</li>
@@ -28,7 +30,7 @@ const Navbar = () => {
             </>
           )}
         </ul>
-        {user.isAuthenticated && (
+        {isAuthenticated && (
           <>
             {" "}
             <button

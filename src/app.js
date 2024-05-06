@@ -9,7 +9,10 @@ import cartsRoutes from "./routes/carts.routes.js";
 
 const app = express();
 
-app.use(cors())
+app.use(cors({
+    origin:"http://localhost:5173",
+    credentials: true,
+}))
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser()); 

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from "../../api/axios";
 import { setIsLoading } from "./isLoading";
 
 export const productsSlice = createSlice({
@@ -15,7 +15,7 @@ export const productsSlice = createSlice({
 export const getProductsThunk = () => (dispatch) => {
   dispatch(setIsLoading(true));
   axios
-    .get("http://localhost:3000/api/products")
+    .get("/products")
     .then((res) => dispatch(setProducts(res.data)))
     .catch((error) => console.error(error))
     .finally(() => dispatch(setIsLoading(false)));
@@ -24,7 +24,7 @@ export const getProductsThunk = () => (dispatch) => {
 export const getProductsByCategoryThunk = (category) => (dispatch) => {
   dispatch(setIsLoading(true));
   axios
-    .get(`http://localhost:3000/api/products/category/${category}`)
+    .get(`/products/category/${category}`)
     .then((res) => dispatch(setProducts(res.data)))
     .catch((error) => console.error(error))
     .finally(() => dispatch(setIsLoading(false)));
@@ -33,7 +33,7 @@ export const getProductsByCategoryThunk = (category) => (dispatch) => {
 export const getProductsByNameThunk = (name) => (dispatch) => {
   dispatch(setIsLoading(true));
   axios
-    .get(`http://localhost:3000/api/products/leaked/${name}`)
+    .get(`/products/leaked/${name}`)
     .then((res) => dispatch(setProducts(res.data)))
     .catch((error) => console.error(error))
     .finally(() => dispatch(setIsLoading(false)));
@@ -42,7 +42,7 @@ export const getProductsByNameThunk = (name) => (dispatch) => {
 export const getProductDetailThunk = (id) => (dispatch) => {
   dispatch(setIsLoading(true));
   axios
-    .get(`http://localhost:3000/api/products/${id}`)
+    .get(`/products/${id}`)
     .then((res) => dispatch(setProducts(res.data)))
     .catch((error) => console.error(error))
     .finally(() => dispatch(setIsLoading(false)));

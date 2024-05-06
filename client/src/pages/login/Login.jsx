@@ -2,10 +2,11 @@ import "./login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import imgLogo from "/home4.png";
-import axios from "axios";
-import { useDispatch } from "react-redux";
+import axios from "../../api/axios";
+import { useDispatch, useSelector } from "react-redux";
 import { userThunk } from "../../store/slices/user";
 import { useState, useEffect } from "react";
+import { setIsAuthenticated } from "../../store/slices/isAuthenticated";
 
 const Login = () => {
   const [loginError, setLoginError] = useState([]);
@@ -19,7 +20,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loginError.length > 0) {
+    if (loginError?.length > 0) {
       const timer = setTimeout(() => {
         setLoginError([]);
       }, 4000);
@@ -29,13 +30,14 @@ const Login = () => {
 
   const submit = (data) => {
     axios
-      .post("http://localhost:3000/api/auth/login", data)
+      .post("/auth/login", data)
       .then((res) => {
         dispatch(userThunk(res.data));
+        dispatch(setIsAuthenticated(true));
         navigate("/");
       })
       .catch((error) => {
-        setLoginError(error.response.data);
+        setLoginError(error.response?.data);
       });
   };
 
@@ -49,7 +51,7 @@ const Login = () => {
           onSubmit={handleSubmit(submit)}
           className="form lg:w-[580px] lg:gap-7 lg:px-8"
         >
-          {loginError.map((error, i) => (
+          {loginError?.map((error, i) => (
             <div
               key={i}
               className="absolute bg-red-500 text-white text-base p-1 top-0 right-0 mr-1 rounded-md mt-12 lg:text-lg lg:-right-80"
