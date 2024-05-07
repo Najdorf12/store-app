@@ -33,7 +33,7 @@ const Login = () => {
       .post("/auth/login", data)
       .then((res) => {
         dispatch(userThunk(res.data));
-        dispatch(setIsAuthenticated(true));
+     /*    dispatch(setIsAuthenticated(true)); */
         navigate("/");
       })
       .catch((error) => {

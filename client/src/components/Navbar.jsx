@@ -1,11 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import imgCart from "/cart.png";
 import imgCartProduct from "/home2.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsAuthenticated } from "../store/slices/isAuthenticated";
 import { useState } from "react";
+import axios from "../api/axios";
+import { setUser } from "../store/slices/user";
+
 const Navbar = () => {
   const [active, setActive] = useState(false);
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    axios
+    .post("/auth/logout")
+    .then((res) => {
+      dispatch(setIsAuthenticated(false));
+      dispatch(setUser(null))
+      navigate("/")
+    })
+    .catch(error => console.error(error))
+  };
 
   return (
     <>
@@ -15,9 +32,12 @@ const Navbar = () => {
             <li>Home</li>
           </Link>
           {isAuthenticated && (
-            <Link to={"/profile"}>
-              <li>Profile</li>
-            </Link>
+            <>
+              <Link to={"/profile"}>
+                <li>Profile</li>
+              </Link>
+              <li onClick={logout}>Logout</li>
+            </>
           )}
           {!isAuthenticated && (
             <>

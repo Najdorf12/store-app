@@ -37,7 +37,7 @@ const Register = () => {
       .post("/auth/register", data)
       .then((res) => {
         dispatch(userThunk(res.data));
-        dispatch(setIsAuthenticated(true));
+        /* dispatch(setIsAuthenticated(true)); */
         navigate("/");
       })
       .catch((error) => {

@@ -2,14 +2,25 @@ import imgHome from "/home4.png";
 import About from "./About";
 import Store from "./Store";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { verifyTokenThunk } from "../store/slices/isAuthenticated";
+import Cookies from "js-cookie";
+import axios from "../api/axios";
 
 const Home = () => {
 
-  const isAuthenticated = useSelector(state => state.isAuthenticated)
-  useEffect(()=> {
-    console.log(isAuthenticated)
-  },[])
+  const user = useSelector(state => state.user);
+ 
+  const dispatch = useDispatch();
+
+   useEffect(() => {
+    const cookies = Cookies.get();
+    if (cookies.token) {
+      dispatch(verifyTokenThunk())
+    }
+    console.log(user);
+  }, []);
+
   return (
     <>
       <section
