@@ -41,12 +41,12 @@ const Home = () => {
           />
         </picture>
 
-        <ul className="absolute right-0 bottom-0 text-4xl text-gray-300 flex justify-center items-center m-2 md:gap-3 sm:text-5xl lg:mr-32 lg:mb-8">
+        <ul className="absolute right-0 bottom-0 text-4xl text-gray-200 flex justify-center items-center m-2 md:gap-3 sm:text-5xl lg:mr-32 lg:mb-8 z-10 lg:gap-6">
           <li>
-            <i className="bx bxl-instagram"></i>
+            <i className="bx bxl-instagram cursor-pointer hover:scale-105 hover:text-[#dbf01f] duration-200"></i>
           </li>
           <li>
-            <i className="bx bxl-meta"></i>
+            <i className="bx bxl-facebook cursor-pointer hover:scale-105 hover:text-[#dbf01f] duration-200"></i>
           </li>
           <div className="w-24 h-1 rounded-sm bg-[#dbf01f] lg:w-28"></div>
         </ul>

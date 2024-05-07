@@ -15,13 +15,13 @@ const Navbar = () => {
 
   const logout = () => {
     axios
-    .post("/auth/logout")
-    .then((res) => {
-      dispatch(setIsAuthenticated(false));
-      dispatch(setUser(null))
-      navigate("/")
-    })
-    .catch(error => console.error(error))
+      .post("/auth/logout")
+      .then((res) => {
+        dispatch(setIsAuthenticated(false));
+        dispatch(setUser(null));
+        navigate("/");
+      })
+      .catch((error) => console.error(error));
   };
 
   return (
@@ -29,23 +29,36 @@ const Navbar = () => {
       <nav className="w-full  absolute z-50 flex justify-end items-center gap-2 px-4 py-4 xl:px-8 ">
         <ul className="flex gap-4 mr-16 mt-4 font-semibold font-text2 text-gray-200 text-lg lg:mr-20 lg:gap-7 lg:text-xl xl:mr-24 z-[100]">
           <Link to={"/"}>
-            <li>Home</li>
+            <li className="cursor-pointer hover:scale-105 hover:text-[#dbf01f] duration-200">
+              Home
+            </li>
           </Link>
           {isAuthenticated && (
             <>
               <Link to={"/profile"}>
-                <li>Profile</li>
+                <li className="cursor-pointer hover:scale-105 hover:text-[#dbf01f] duration-200">
+                  Profile
+                </li>
               </Link>
-              <li onClick={logout}>Logout</li>
+              <li
+                className="cursor-pointer hover:scale-105 hover:text-[#dbf01f] duration-200"
+                onClick={logout}
+              >
+                Logout
+              </li>
             </>
           )}
           {!isAuthenticated && (
             <>
               <Link to={"/login"}>
-                <li>Login</li>
+                <li className="cursor-pointer hover:scale-105 hover:text-[#dbf01f] duration-200">
+                  Login
+                </li>
               </Link>
               <Link to={"/register"}>
-                <li>Register</li>
+                <li className="cursor-pointer hover:scale-105 hover:text-[#dbf01f] duration-200">
+                  Register
+                </li>
               </Link>
             </>
           )}
@@ -55,7 +68,7 @@ const Navbar = () => {
             {" "}
             <button
               onClick={() => setActive(!active)}
-              className={`fixed max-w-12 lg:max-w-[60px] mt-4 z-[100]`}
+              className={`fixed max-w-12 lg:max-w-[60px] mt-4 z-[100] cursor-pointer hover:scale-105  duration-200`}
             >
               <img src={imgCart} alt="" />
             </button>

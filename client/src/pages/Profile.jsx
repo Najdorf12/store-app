@@ -17,10 +17,10 @@ const Profile = () => {
 
   return (
     <section className="bg-zinc-900 w-full h-screen flex flex-col items-center justify-center">
-      <h2 className="text-white font-semibold text-3xl">PROFILE</h2>
-      <div className="py-4 px-2 text-lg font-semibold text-gray-200 flex flex-col gap-4 bg-zinc-700">
-        <p>{user.username}</p>
-        <p>{user.email}</p>
+      <h2 className="text-white font-semibold text-5xl -mt-2 font-title">PROFILE</h2>
+      <div className="py-4 px-4 text-xl font-semibold text-gray-200 flex flex-col gap-4 rounded-lg bg-[#1a8e79] mt-6 font-text2">
+        <p>Username: {user.username}</p>
+        <p>Email: {user.email}</p>
       </div>
     </section>
   );
