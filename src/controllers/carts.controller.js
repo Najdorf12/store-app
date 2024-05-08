@@ -7,37 +7,34 @@ export const getCart = async (req, res) => {
   res.json(cart);
 };
 
-export const deleteCart = async (req, res) => {
-  const cart = await Cart.findByIdAndDelete(req.params.id);
-  if (!cart) return res.status(404).json({ message: "Cart not found" });
-  res.json(cart);
-};
-
 export const updateCart = async (req, res) => {
   try {
-    /* Ejemplo del body que envias */
-    /* {"productId": "asd456wwer", "quantity": 12} */
     const { productId, quantity } = req.body;
+    console.log(productId);
+
     const cart = await Cart.findById(req.params.id);
+    if (!cart) return res.status(404).json({ message: "Cart not found" });
+
     const productFound = cart.products.find(
-      (product) => product.productId === productId
+      (product) => product.productId.toString() === productId
+    );
+    const index = cart.products.findIndex(
+      (product) => product.productId.toString() === productId
     );
 
-    if (productFound) {
-      let index = cart.products.indexOf(productFound);
-      productFound.quantity = quantity;
-      cart.products[index] = productFound;
-      await cart.save();
+    if (!productFound) {
+      cart.products.push({
+        productId,
+        quantity,
+      });
     } else {
-      const newProduct = {
-        productId: productId,
-        quantity: quantity,
+      cart.products[index] = {
+        productId,
+        quantity,
       };
-      cart.products.push(newProduct);
-      await cart.save();
     }
 
-    if (!cart) return res.status(404).json({ message: "Cart not found" });
+    await cart.save();
     res.json(cart);
   } catch (error) {
     res
