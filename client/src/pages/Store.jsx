@@ -7,12 +7,14 @@ import {
   getProductsByNameThunk,
 } from "../store/slices/products";
 import Button from "../components/Button";
+import { addProductCart } from "../store/slices/cart";
 
 const Store = () => {
   const btnsStore = ["All", "T-shirt", "Jersey", "Jeans", "Shoes"];
   const [searchValue, setSearchValue] = useState("");
 
   const products = useSelector((state) => state.products);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,7 +29,9 @@ const Store = () => {
     if (e.target.innerText === "All") return dispatch(getProductsThunk());
     dispatch(getProductsByCategoryThunk(e.target.innerText));
   };
-
+  
+ 
+ 
   return (
     <>
       <section
@@ -73,7 +77,7 @@ const Store = () => {
             className="mt-10 flex flex-wrap items-center justify-center gap-4 pb-24 lg:mt-20 lg:gap-6"
           >
             {products.map((product) => (
-              <Card key={product._id} data={product} />
+              <Card key={product._id} data={product} cartId={user.cart} />
             ))}
           </div>
         </section>

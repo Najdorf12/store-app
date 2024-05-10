@@ -4,13 +4,15 @@ import { useSelector, useDispatch } from "react-redux";
 
 const Profile = () => {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
+  
   const user = useSelector(state => state.user)
-  console.log(isAuthenticated)
+ 
+  
   useEffect(() => {
     if (isAuthenticated) {
       axios
         .get("/auth/profile")
-        .then((res) => console.log(res.data))
+        .then((res) => console.log(user))
         .catch((error) => console.error(error));
     }
   }, []);

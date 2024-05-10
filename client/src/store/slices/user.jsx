@@ -11,9 +11,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const userThunk = (user) => (dispatch) => {
-  dispatch(setUser(user));
-};
 
 export const { setUser } = userSlice.actions;
 export default userSlice.reducer;

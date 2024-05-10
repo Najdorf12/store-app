@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { setUser } from "./user";
 import axios from "../../api/axios";
+import { getCartThunk } from "./cart";
 
 export const isAuthenticated = createSlice({
   name: "isAuthenticated",
@@ -16,9 +17,10 @@ export const verifyTokenThunk = () => (dispatch) => {
   axios
     .get("/auth/verify")
     .then((res) => {
-        dispatch(setIsAuthenticated(true));
-        dispatch(setUser(res.data));
-    })
+      dispatch(setIsAuthenticated(true));
+      dispatch(getCartThunk(res.data.cart)); 
+      dispatch(setUser(res.data));
+      })
     .catch((error) => {
       console.error(error);
       dispatch(setIsAuthenticated(false));

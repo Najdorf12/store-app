@@ -4,9 +4,8 @@ import { useForm } from "react-hook-form";
 import axios from "../../api/axios";
 import { useState,useEffect } from "react";
 
-import Cookies from "js-cookie";
-import { userThunk } from "../../store/slices/user";
 import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../store/slices/user";
 
 import "./login.css";
 
@@ -36,8 +35,8 @@ const Register = () => {
     axios
       .post("/auth/register", data)
       .then((res) => {
-        dispatch(userThunk(res.data));
-        /* dispatch(setIsAuthenticated(true)); */
+        console.log(res)
+        dispatch(setUser(res.data))
         navigate("/");
       })
       .catch((error) => {

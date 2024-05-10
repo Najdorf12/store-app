@@ -10,16 +10,15 @@ export const getCart = async (req, res) => {
 export const updateCart = async (req, res) => {
   try {
     const { productId, quantity } = req.body;
-    console.log(productId);
 
     const cart = await Cart.findById(req.params.id);
     if (!cart) return res.status(404).json({ message: "Cart not found" });
 
     const productFound = cart.products.find(
-      (product) => product.productId.toString() === productId
+      (product) => product.productId?.toString() === productId
     );
     const index = cart.products.findIndex(
-      (product) => product.productId.toString() === productId
+      (product) => product.productId?.toString() === productId
     );
 
     if (!productFound) {
@@ -33,7 +32,6 @@ export const updateCart = async (req, res) => {
         quantity,
       };
     }
-
     await cart.save();
     res.json(cart);
   } catch (error) {

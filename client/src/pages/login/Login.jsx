@@ -4,9 +4,8 @@ import { useForm } from "react-hook-form";
 import imgLogo from "/home4.png";
 import axios from "../../api/axios";
 import { useDispatch, useSelector } from "react-redux";
-import { userThunk } from "../../store/slices/user";
+import { setUser } from "../../store/slices/user";
 import { useState, useEffect } from "react";
-import { setIsAuthenticated } from "../../store/slices/isAuthenticated";
 
 const Login = () => {
   const [loginError, setLoginError] = useState([]);
@@ -31,9 +30,7 @@ const Login = () => {
   const submit = (data) => {
     axios
       .post("/auth/login", data)
-      .then((res) => {
-        dispatch(userThunk(res.data));
-     /*    dispatch(setIsAuthenticated(true)); */
+      .then(() => {
         navigate("/");
       })
       .catch((error) => {

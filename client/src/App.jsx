@@ -10,10 +10,11 @@ import FormProduct from "./pages/FormProduct";
 import ProtectedRoutes from "./pages/ProtectedRoutes";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 
 const App = () => {
   const isLoading = useSelector((state) => state.isLoading);
-
+ 
   return (
     <BrowserRouter>
       <Navbar />
