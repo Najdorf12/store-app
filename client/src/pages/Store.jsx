@@ -7,7 +7,6 @@ import {
   getProductsByNameThunk,
 } from "../store/slices/products";
 import Button from "../components/Button";
-import { addProductCart } from "../store/slices/cart";
 
 const Store = () => {
   const btnsStore = ["All", "T-shirt", "Jersey", "Jeans", "Shoes"];

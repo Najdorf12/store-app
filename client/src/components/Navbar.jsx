@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsAuthenticated } from "../store/slices/isAuthenticated";
 import { setUser } from "../store/slices/user";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "../api/axios";
 import { setCart } from "../store/slices/cart";
 
@@ -12,13 +12,20 @@ const Navbar = () => {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user);
+  const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  useEffect(()=>{
-    console.log("RENDER CART", user)
-    console.log("RENDER CART", cart)
-    },[])
+
+  const productsInCart = cart.products?.map((product) => {
+    const productFound = product.productId;
+    const productos = products.find(
+      (producto) => producto._id === productFound
+    );
+    return productos;
+  });
+
+  useEffect(()=> {
+  },[])
 
   const logout = () => {
     axios
@@ -26,7 +33,7 @@ const Navbar = () => {
       .then((res) => {
         dispatch(setIsAuthenticated(false));
         dispatch(setUser({}));
-        dispatch(setCart({}))
+        dispatch(setCart({}));
         navigate("/");
       })
       .catch((error) => console.error(error));
@@ -71,7 +78,7 @@ const Navbar = () => {
             </>
           )}
         </ul>
-        <Cart cartProducts={cart.products} />
+        <Cart productsInCart={productsInCart}  />
       </nav>
     </>
   );
