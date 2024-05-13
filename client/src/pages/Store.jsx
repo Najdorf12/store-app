@@ -76,7 +76,7 @@ const Store = () => {
             className="mt-10 flex flex-wrap items-center justify-center gap-4 pb-24 lg:mt-20 lg:gap-6"
           >
             {products.map((product) => (
-              <Card key={product._id} data={product} cartId={user.cart} />
+              <Card key={product._id} data={product} cartId={user?.cart} />
             ))}
           </div>
         </section>

@@ -1,16 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 import imgStore from "/images/Jupiter.jpeg";
 import { Link } from "react-router-dom";
-import { addProductCart } from "../store/slices/cart";
+import { addProductCartThunk } from "../store/slices/cart";
 import { useEffect } from "react";
 
 const Card = ({ data, cartId }) => {
-  const { _id, name, description, price } = data;
+  const { _id, name, description, price, category } = data;
   const dispatch = useDispatch();
 
   const addToCart = () => {
     dispatch(
-      addProductCart(cartId, {
+      addProductCartThunk(cartId, {
         productId: _id,
         quantity: 1,
       })
@@ -21,7 +21,7 @@ const Card = ({ data, cartId }) => {
     <>
       <div
         id="card"
-        className="w-72 h-[515px] bg-[rgb(0,0,0,.5)] rounded-2xl text-white  font-text hover:scale-105 duration-500"
+        className="w-72 h-[480px] bg-[rgb(0,0,0,.5)] rounded-2xl text-white  font-text hover:scale-105 duration-500"
       >
         <picture>
           <img
@@ -30,23 +30,23 @@ const Card = ({ data, cartId }) => {
             alt=""
           />
         </picture>
-        <article className="py-3 px-4 flex flex-col gap-3">
+        <article className="relative pt-4 px-3 flex flex-col gap-3">
           <h6 className="font-text text-2xl">{name}</h6>
-          <p className="text-gray-400 text-base font-text">{description}</p>
-          <div className="w-full mt-4 px-4 h-[1px] bg-[#dbf01f]"></div>
+          <p className="text-gray-400 text-xl font-text2">{category}</p>
+          <div className="w-full my-2 px-4 h-[1px] bg-[#dbf01f]"></div>
+          <span className="font-text2 text-2xl border border-[#dbf01f] bg-[#1a8e79] opacity-90  px-4 py-1 rounded-lg absolute right-0 mr-6 text-white">$ {price}</span>
           <div id="price" className="flex justify-between items-center ">
-            <span className="font-text text-3xl text-gray-200"> {price}</span>
-            <div className="flex gap-3">
+            <div className=" w-full flex gap-8 lg:gap-4 justify-center items-center">
               <Link to={`/products/${_id}`}>
-                <button className="text-5xl text-[#dbf01f] hover:scale-110 hover:rotate-45 duration-500">
-                  <i className="bx bxs-right-arrow-circle"></i>
+                <button className="relative text-2xl lg:text-3xl font-medium border border-[#dbf01f]  py-1 px-2  text-gray-200 rounded lg hover:scale-110 duration-500 font-title">
+                  SEE MORE
                 </button>
               </Link>
               <button
                 onClick={addToCart}
-                className="text-5xl text-[#dbf01f] hover:scale-110 duration-500"
+                className="relative text-2xl lg:text-3xl font-medium border border-[#dbf01f]  py-1 px-2  text-gray-200 rounded lg hover:scale-110 duration-500 font-title "
               >
-                <i className="bx bx-plus-circle"></i>
+                Add to Cart 
               </button>
             </div>
           </div>

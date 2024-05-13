@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsByCategoryThunk } from "../store/slices/products";
+import { addProductCartThunk } from "../store/slices/cart";
 import axios from "axios";
 
 const ProductDetail = () => {
@@ -11,11 +12,12 @@ const ProductDetail = () => {
   const [productDetail, setProductDetail] = useState({});
   const user = useSelector((state) => state.user);
   const allProducts = useSelector((state) => state.products);
+  const [rate, setRate] = useState(0);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     getProductDetail();
-    console.log(user);
   }, []);
 
   const getProductDetail = () => {
@@ -26,6 +28,22 @@ const ProductDetail = () => {
         dispatch(getProductsByCategoryThunk(res.data.category));
       })
       .catch((error) => console.error(error));
+  };
+
+  const increment = () => {
+    setRate(rate + 1);
+  };
+  const decrement = () => {
+    if (rate > 0) setRate(rate - 1);
+  };
+
+  const addProduct = () => {
+    dispatch(
+      addProductCartThunk(user.cart, {
+        productId: id,
+        quantity: rate,
+      })
+    );
   };
 
   return (
@@ -57,16 +75,23 @@ const ProductDetail = () => {
               $ {productDetail.price}
             </span>
             <div className="flex justify-center items-center gap-4 ">
-              <button className="bg-red-500 text-3xl text-gray-200">
+              <button
+                onClick={increment}
+                className="bg-red-500 text-3xl text-gray-200"
+              >
                 <i className="bx bx-plus-circle"></i>
               </button>
-              <h2 className="text-3xl text-gray-200">1</h2>
-              <button className="bg-red-500 text-3xl text-gray-200">
+              <h2 className="text-3xl text-gray-200">{rate}</h2>
+              <button
+                onClick={decrement}
+                className="bg-red-500 text-3xl text-gray-200"
+              >
                 <i className="bx bx-minus-circle"></i>
               </button>
             </div>
           </div>
           <button
+            onClick={addProduct}
             className="w-[140px] bg-zinc-800 h-[40px] mt-6 font-text flex items-center text-[#dbf01f]
         text-lg font-normal justify-center rounded-xl cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-[#dbf01f]  before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-xl hover:before:left-0 hover:text-zinc-900 lg:text-2xl lg:w-[180px]"
           >

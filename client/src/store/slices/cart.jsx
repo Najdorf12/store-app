@@ -20,12 +20,25 @@ export const getCartThunk = (id) => (dispatch) => {
     .catch((error) => console.error(error));
 };
 
-export const addProductCart = (id, data) => (dispatch) => {
+export const addProductCartThunk = (id, data) => (dispatch) => {
   axios
     .put(`/cart/${id}`, data)
     .then(() => dispatch(getCartThunk(id)))
     .catch((error) => console.error(error));
 };
+
+export const deleteProductCartThunk = (id, data) => (dispatch) => {
+   axios
+    .delete(`/cart/${id}`, data)
+    .then(() => dispatch(getCartThunk(id)))
+    .catch((error) => console.error(error)); 
+};
+/* console.log(cart._id)
+console.log(product._id)
+axios
+.delete(`/cart/${cart?._id}`, { data: { productId: product?._id } })
+.then(res => console.log(res))
+.catch(error => console.error(error)) */
 
 export const { setCart } = cartSlice.actions;
 export default cartSlice.reducer;
