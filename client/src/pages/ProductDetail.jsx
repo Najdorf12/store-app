@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsByCategoryThunk } from "../store/slices/products";
-import { addProductCartThunk } from "../store/slices/cart";
+import { addProductCartThunk, getCartThunk } from "../store/slices/cart";
 import axios from "axios";
 
 const ProductDetail = () => {
@@ -12,12 +12,13 @@ const ProductDetail = () => {
   const [productDetail, setProductDetail] = useState({});
   const user = useSelector((state) => state.user);
   const allProducts = useSelector((state) => state.products);
-  const [rate, setRate] = useState(0);
+  const [rate, setRate] = useState(1);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     getProductDetail();
+    getCartThunk(id);
   }, []);
 
   const getProductDetail = () => {
@@ -34,7 +35,7 @@ const ProductDetail = () => {
     setRate(rate + 1);
   };
   const decrement = () => {
-    if (rate > 0) setRate(rate - 1);
+    if (rate > 1) setRate(rate - 1);
   };
 
   const addProduct = () => {
@@ -49,7 +50,7 @@ const ProductDetail = () => {
   return (
     <>
       <section className="overflow-hidden relative w-full bg-[rgb(0,0,0)] flex flex-col justify-center items-center gap-4 pt-28 pb-56 lg:gap-0 lg:p-0 md:flex-row lg:h-screen">
-        <article className=" z-50 flex flex-col justify-center items-center px-3 max-w-[450px] md:items-start md:pl-6">
+        <article className=" z-10 flex flex-col justify-center items-center px-3 max-w-[460px] md:items-start md:pl-6">
           <h2
             style={{
               WebkitTextFillColor: "transparent",
@@ -71,20 +72,22 @@ const ProductDetail = () => {
             id="price"
             className="flex justify-between items-center gap-6  lg:gap-12 mt-10"
           >
-            <span className="font-text text-3xl text-zinc-100  xl:text-4xl lg:font-bold tracking-wider">
+            <span className="font-text text-4xl text-zinc-100  xl:text-4xl lg:font-bold tracking-wider border border-[#dbf01f] px-3 py-1 rounded-lg">
               $ {productDetail.price}
             </span>
             <div className="flex justify-center items-center gap-4 ">
               <button
                 onClick={increment}
-                className="bg-red-500 text-3xl text-gray-200"
+                className="text-4xl lg:text-5xl lg:ml-14 text-[#1a8e79] hover:scale-105  duration-300 "
               >
                 <i className="bx bx-plus-circle"></i>
               </button>
-              <h2 className="text-3xl text-gray-200">{rate}</h2>
+              <h2 className="text-2xl text-gray-400 text-center ">
+                {rate} Items
+              </h2>
               <button
                 onClick={decrement}
-                className="bg-red-500 text-3xl text-gray-200"
+                className="text-4xl lg:text-5xl  text-[#1a8e79] hover:scale-105 duration-300"
               >
                 <i className="bx bx-minus-circle"></i>
               </button>
@@ -92,29 +95,28 @@ const ProductDetail = () => {
           </div>
           <button
             onClick={addProduct}
-            className="w-[140px] bg-zinc-800 h-[40px] mt-6 font-text flex items-center text-[#dbf01f]
-        text-lg font-normal justify-center rounded-xl cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-[#dbf01f]  before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-xl hover:before:left-0 hover:text-zinc-900 lg:text-2xl lg:w-[180px]"
+            className="w-[140px] self-end mr-10 mt-4  lg:mr-6 lg:mt-5 bg-zinc-800 h-[40px] font-text flex items-center text-[#dbf01f]
+        text-xl font-normal justify-center rounded-xl cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-[#dbf01f]  before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-xl hover:before:left-0 hover:text-zinc-900 lg:text-2xl lg:w-[180px]"
           >
             Add to cart
           </button>
-
-          <section className="flex justify-center items-center mt-14 lg:mt-20 gap-1">
-            <p className="text-lg font-semibold leading-6 text-gray-200 lg:text-xl">
-              Similar Products
-            </p>
+          <p className="mt-12 mb-3 text-lg font-semibold leading-6 text-gray-100 lg:text-2xl lg:mb-5">
+            Similar Products 
+          </p>
+          <section className="flex justify-center items-center  gap-6 lg:gap-8">
             {allProducts.map((product, i) => (
               <div
                 key={i}
-                className="flex flex-wrap items-center justify-center gap-2"
+                className="flex flex-wrap items-center justify-center"
               >
-                <picture className="">
+                <picture className="flex flex-col justify-center items-center gap-2">
                   <img
-                    className="max-w-12 rounded-sm"
+                    className="max-w-12 rounded-sm lg:max-w-16"
                     src={imgProduct}
                     alt=""
                   />
+                  <h2 className="text-base text-gray-200 lg:text-lg">{product.name}</h2>
                 </picture>
-                <h2 className="text-base text-gray-200">{product.name}</h2>
               </div>
             ))}
           </section>

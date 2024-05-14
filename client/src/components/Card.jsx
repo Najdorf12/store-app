@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import imgStore from "/images/Jupiter.jpeg";
 import { Link } from "react-router-dom";
 import { addProductCartThunk } from "../store/slices/cart";
-import { useEffect } from "react";
 
 const Card = ({ data, cartId }) => {
   const { _id, name, description, price, category } = data;
@@ -34,7 +33,7 @@ const Card = ({ data, cartId }) => {
           <h6 className="font-text text-2xl">{name}</h6>
           <p className="text-gray-400 text-xl font-text2">{category}</p>
           <div className="w-full my-2 px-4 h-[1px] bg-[#dbf01f]"></div>
-          <span className="font-text2 text-2xl border border-[#dbf01f] bg-[#1a8e79] opacity-90  px-4 py-1 rounded-lg absolute right-0 mr-6 text-white">$ {price}</span>
+          <span className="font-text2 text-2xl /* border border-[#1a8e79]  opacity-90  px-4 py-1 rounded-lg absolute right-0 mr-6 text-white">$ {price}</span>
           <div id="price" className="flex justify-between items-center ">
             <div className=" w-full flex gap-8 lg:gap-4 justify-center items-center">
               <Link to={`/products/${_id}`}>

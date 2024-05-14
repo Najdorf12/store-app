@@ -41,7 +41,6 @@ export const updateCart = async (req, res) => {
 };
 
 export const deleteProductCart = async (req, res) => {
-  console.log(req.body)
   const { productId } = req.body;
   try {
     const cart = await Cart.findById(req.params.id);
@@ -62,6 +61,6 @@ export const deleteProductCart = async (req, res) => {
     await cart.save();
     return res.json(cart);
   } catch (error) {
-    console.error(error);
+    res.status(400).json({ message: error.message });
   }
 };

@@ -10,23 +10,12 @@ import {
 
 const Cart = ({ productsInCart }) => {
   const [active, setActive] = useState(false);
-  const [rate, setRate] = useState(0);
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (cart) {
-      console.log("cART", cart);
-      console.log("productsInCart", productsInCart);
-    }
-  }, []);
-
-  const decrement = () => {
-    if (rate > 0) setRate(rate - 1);
-  };
-  const increment = () => {
-    setRate(rate + 1);
+  const deleteProductCart = (data) => {
+    dispatch(deleteProductCartThunk(cart?._id, data));
   };
 
   return (
@@ -69,26 +58,57 @@ const Cart = ({ productsInCart }) => {
                       {product?.description}
                     </p>
                     <div className="flex gap-2 lg:gap-5 items-center mt-3">
-                      <span className="font-text px-2 py-1 font-medium text-lg bg-zinc-900 md:text-2xl text-zinc-300  tracking-wide rounded-lg">
-                        $ {product?.price}
+                      <span className="font-text px-2 py-1 font-medium text-lg bg-zinc-900 md:text-2xl text-zinc-300 lg:px-4  tracking-wide rounded-lg">
+                        $
+                        {product?.price *
+                          cart.products.find(
+                            (producto) => producto?.productId === product?._id
+                          )?.quantity}
                       </span>
                       <span className="text-white text-base md:text-xl  font-text bg-[#1a8e79] px-2 rounded-lg">
                         {
                           cart.products.find(
                             (producto) => producto?.productId === product?._id
                           )?.quantity
-                        } Items
+                        }
+                        Items
                       </span>
+                      <i
+                        className="bx bx-plus-circle text-2xl lg:text-3xl text-[#dbf01f] cursor-pointer hover:scale-110 hover:text-zinc-900 duration-300"
+                        onClick={() => {
+                          const items = cart.products.find(
+                            (producto) => producto?.productId === product?._id
+                          )?.quantity;
 
-                      <i className="bx bx-plus-circle text-2xl lg:text-3xl text-[#dbf01f] cursor-pointer hover:scale-110 hover:text-zinc-900 duration-300"></i>
-                      <i className="bx bx-minus-circle text-2xl lg:text-3xl text-[#dbf01f] cursor-pointer hover:scale-110 hover:text-zinc-900 duration-300"></i>
+                          dispatch(
+                            addProductCartThunk(cart?._id, {
+                              productId: product?._id,
+                              quantity: items + 1,
+                            })
+                          );
+                        }}
+                      ></i>
+                      <i
+                        className="bx bx-minus-circle text-2xl lg:text-3xl text-[#dbf01f] cursor-pointer hover:scale-110 hover:text-zinc-900 duration-300"
+                        onClick={() => {
+                          const items = cart.products.find(
+                            (producto) => producto?.productId === product?._id
+                          )?.quantity;
+
+                          if (items > 1)
+                            dispatch(
+                              addProductCartThunk(cart?._id, {
+                                productId: product?._id,
+                                quantity: items - 1,
+                              })
+                            );
+                        }}
+                      ></i>
                       <i
                         onClick={() =>
-                          dispatch(
-                            deleteProductCartThunk(cart?._id, {
-                              data: { productId: product?._id },
-                            })
-                          )
+                          deleteProductCart({
+                            data: { productId: product?._id },
+                          })
                         }
                         className="bx bxs-trash-alt text-2xl lg:text-3xl text-[#dbf01f] cursor-pointer hover:scale-110 hover:text-zinc-900 duration-300"
                       ></i>
@@ -97,8 +117,22 @@ const Cart = ({ productsInCart }) => {
                 </div>
               ))
             : null}
+          <p className="font-text mt-10 bg-gray-200 py-2 px-6 rounded-lg text-lg font-medium lg:text-2xl lg:mt-16 border-4 border-[#1a8e79] ">
+            TOTAL : ${" "}
+            {productsInCart
+              ? productsInCart
+                  ?.map((product, i) => {
+                    const cantidadProductos = cart.products?.find(
+                      (producto) => producto?.productId === product?._id
+                    )?.quantity;
+                    const pricePerProducts = cantidadProductos * product?.price;
+                    return pricePerProducts;
+                  })
+                  ?.reduce((a, b) => a + b, 0)
+              : 0}
+          </p>
 
-          <button className="px-12 py-2 text-xl font-text2 font-semibold mt-8 bg-[#1a8e79] rounded-lg text-white lg:mt-12">
+          <button className="px-10 py-2 text-xl font-text2 font-semibold mt-8 bg-[#1a8e79] rounded-lg text-white lg:mt-12 border border-[#dbf01f] hover:scale-110   duration-300">
             BUY
           </button>
         </section>

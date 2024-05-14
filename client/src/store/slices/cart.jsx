@@ -33,12 +33,6 @@ export const deleteProductCartThunk = (id, data) => (dispatch) => {
     .then(() => dispatch(getCartThunk(id)))
     .catch((error) => console.error(error)); 
 };
-/* console.log(cart._id)
-console.log(product._id)
-axios
-.delete(`/cart/${cart?._id}`, { data: { productId: product?._id } })
-.then(res => console.log(res))
-.catch(error => console.error(error)) */
 
 export const { setCart } = cartSlice.actions;
 export default cartSlice.reducer;
