@@ -1,10 +1,5 @@
 import imgAbout1 from "/images/photos/model.jpeg";
-import imgAbout2 from "/images/photos/model2.jpeg";
-import imgAbout3 from "/images/photos/model3.jpeg";
-import imgAbout4 from "/images/photos/model4.jpeg";
-import imgAbout5 from "/images/photos/model5.jpeg";
-import imgAbout6 from "/images/photos/model6.jpeg";
-import imgAbout7 from "/images/photos/model7.jpeg";
+import imgAbout8 from "/images/photos/model13.jpeg";
 
 const About = () => {
   return (
@@ -33,14 +28,14 @@ const About = () => {
 
       <div className="flex flex-col items-center ">
         <picture className="max-w-72 mt-6 lg:max-w-96">
-          <img className="w-full rounded-lg " src={imgAbout3} alt="" />
+          <img className="w-full rounded-lg " src={imgAbout8} alt="" />
         </picture>
         <article className=" px-4 py-3 my-6 max-w-[500px]">
-          <p className="text-gray-300 font-semibold">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci
+          <p className="text-gray-200 font-text2 font-medium text-base text-center ">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. <br />  Adipisci
             dolor fugiat delectus cupiditate natus quam possimus totam
-            praesentium, rem facere, blanditiis, mollitia ullam animi ipsa
-            itaque nam. Nihil, et quos.Nihil, et quos?Nihil, et quos.
+            praesentium, rem facere.<br />
+            <p className=" font-cursive text-4xl mt-4 text-gray-700 font-semibold">Lorem Impsum</p>
           </p>
         </article>
       </div>

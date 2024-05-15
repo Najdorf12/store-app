@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import imgStore from "/images/Jupiter.jpeg";
+import imgStore from "/images/photos/jacket1.jpeg";
 import { Link } from "react-router-dom";
 import { addProductCartThunk } from "../store/slices/cart";
 

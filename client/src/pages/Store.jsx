@@ -1,3 +1,4 @@
+import imgLogo from "/home4.png";
 import Card from "../components/Card";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
@@ -8,8 +9,9 @@ import {
 } from "../store/slices/products";
 import Button from "../components/Button";
 
+
 const Store = () => {
-  const btnsStore = ["All", "T-shirt", "Jersey", "Jeans", "Shoes"];
+  const btnsStore = ["All", "T-shirt", "Jersey","Pants", "Shoes"];
   const [searchValue, setSearchValue] = useState("");
 
   const products = useSelector((state) => state.products);
@@ -35,8 +37,11 @@ const Store = () => {
     <>
       <section
         id="store"
-        className="w-full  bg-[#1a8e79] flex flex-col items-center pt-8 md:pt-28"
+        className="relative w-full  bg-[#1a8e79] flex flex-col items-center pb-20 pt-8 md:pt-28"
       >
+        <picture className="absolute w-32 bottom-0 mt-4 right-0 md:mr-10 xl:mr-20 md:w-44 ">
+          <img src={imgLogo} alt="" />
+        </picture>
         <h3 className="text-7xl text-gray-100 font-semibold font-text tracking-[.5rem] lg:text-9xl">
           <span
             style={{

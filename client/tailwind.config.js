@@ -23,6 +23,7 @@ export default {
         title: ["Bebas Neue", "sans-serif"],
         text: ["Ubuntu", "sans-serif"],
         text2: ["Inter", "sans-serif"],
+        "cursive": ["Great Vibes", "cursive"],
       },
     },
   },

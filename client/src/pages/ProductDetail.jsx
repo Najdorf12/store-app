@@ -1,6 +1,6 @@
 import imgProduct from "/images/Jupiter1.jpeg";
 import imgHome4 from "/home4.png";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsByCategoryThunk } from "../store/slices/products";
@@ -20,7 +20,7 @@ const ProductDetail = () => {
     getProductDetail();
     getCartThunk(id);
   }, []);
-
+ 
   const getProductDetail = () => {
     axios
       .get(`http://localhost:3000/api/products/${id}`)
@@ -72,7 +72,7 @@ const ProductDetail = () => {
             id="price"
             className="flex justify-between items-center gap-6  lg:gap-12 mt-10"
           >
-            <span className="font-text text-4xl text-zinc-100  xl:text-4xl lg:font-bold tracking-wider border border-[#dbf01f] px-3 py-1 rounded-lg">
+            <span className="font-text2 text-4xl text-zinc-100  xl:text-3xl lg:font-bold tracking-wider border border-[#dbf01f] px-3 py-1 lg:px-2 lg:py-2 rounded-lg">
               $ {productDetail.price}
             </span>
             <div className="flex justify-center items-center gap-4 ">
@@ -101,21 +101,32 @@ const ProductDetail = () => {
             Add to cart
           </button>
           <p className="mt-12 mb-3 text-lg font-semibold leading-6 text-gray-100 lg:text-2xl lg:mb-5">
-            Similar Products 
+            Similar Products
           </p>
-          <section className="flex justify-center items-center  gap-6 lg:gap-8">
+          <section className="flex justify-center items-center  gap-6 lg:gap-8 ">
             {allProducts.map((product, i) => (
               <div
                 key={i}
-                className="flex flex-wrap items-center justify-center"
+                className="flex flex-wrap hover:scale-110 duration-300"
               >
-                <picture className="flex flex-col justify-center items-center gap-2">
+                <picture
+                  onClick={()=>{ axios
+                    .get(`http://localhost:3000/api/products/${product._id}`)
+                    .then((res) => {
+                      setProductDetail(res.data);
+                      dispatch(getProductsByCategoryThunk(res.data.category));
+                    })
+                    .catch((error) => console.error(error));}}
+                  className="flex flex-col justify-center items-center gap-2"
+                >
                   <img
-                    className="max-w-12 rounded-sm lg:max-w-16"
+                    className="max-w-12 rounded-sm lg:max-w-14"
                     src={imgProduct}
                     alt=""
                   />
-                  <h2 className="text-base text-gray-200 lg:text-lg">{product.name}</h2>
+                  <h2 className="text-base text-gray-200 lg:text-lg">
+                    {product.name}
+                  </h2>
                 </picture>
               </div>
             ))}

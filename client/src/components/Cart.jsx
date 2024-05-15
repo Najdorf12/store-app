@@ -1,4 +1,4 @@
-import imgCartProduct from "/home2.png";
+import imgCartProduct from "/images/photos/jacket1.jpeg";
 import imgCart from "/cart.png";
 import axios from "../api/axios";
 import { useState, useEffect } from "react";
@@ -47,8 +47,8 @@ const Cart = ({ productsInCart }) => {
                   key={i}
                   className="relative bg-zinc-700 w-full rounded-xl h-32 lg:h-40 mt-6 flex justify-center items-center"
                 >
-                  <picture className=" max-w-32 ">
-                    <img className=" lg:w-full " src={imgCartProduct} alt="" />
+                  <picture className=" max-w-28 mr-2  sm:mr-4 lg:mr-6">
+                    <img className="rounded-lg lg:w-full " src={imgCartProduct} alt="" />
                   </picture>
                   <article className="">
                     <p className="text-lg lg:text-xl font-text2 font-semibold text-zinc-300">
@@ -117,7 +117,7 @@ const Cart = ({ productsInCart }) => {
                 </div>
               ))
             : null}
-          <p className="font-text mt-10 bg-gray-200 py-2 px-6 rounded-lg text-lg font-medium lg:text-2xl lg:mt-16 border-4 border-[#1a8e79] ">
+          <p className="font-text2 mt-10 bg-gray-200 py-2 px-6 rounded-lg text-lg font-medium lg:text-2xl lg:mt-16 border-4 border-[#1a8e79] ">
             TOTAL : ${" "}
             {productsInCart
               ? productsInCart
