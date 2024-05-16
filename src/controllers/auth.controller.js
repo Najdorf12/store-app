@@ -2,8 +2,10 @@ import User from "../models/user.model.js";
 import Cart from "../models/cart.model.js";
 import bycrypt from "bcryptjs";
 import { createAccessToken } from "../libs/jwt.js";
-import { TOKEN_SECRET } from "../.env";
 import jwt from "jsonwebtoken";
+import 'dotenv/config.js'
+
+
 
 export const register = async (req, res) => {
   const { username, email, password } = req.body;
@@ -42,7 +44,8 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
-
+  const TOKEN_SECRET = `${process.env.TOKEN_SECRET}`;
+  console.log(TOKEN_SECRET)
   try {
     const userFound = await User.findOne({ email }).populate("cart");
     if (!userFound) return res.status(400).json(["Invalid credentials"]);

@@ -7,7 +7,7 @@ export const getProducts = async (req, res) => {
 
 export const createProduct = async (req, res) => {
   const { name, description, category, price, date } = req.body;
-
+  console.log(req.files)
   const newProduct = new Product({
     name,
     description,
@@ -15,6 +15,7 @@ export const createProduct = async (req, res) => {
     category,
     date,
   });
+
   const savedProduct = await newProduct.save();
   res.json(savedProduct);
 };
