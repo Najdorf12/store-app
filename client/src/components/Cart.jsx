@@ -58,7 +58,7 @@ const Cart = ({ productsInCart }) => {
                       {product?.description}
                     </p>
                     <div className="flex gap-2 lg:gap-5 items-center mt-3">
-                      <span className="font-text px-2 py-1 font-medium text-lg bg-zinc-900 md:text-2xl text-zinc-300 lg:px-4  tracking-wide rounded-lg">
+                      <span className="font-text px-2 py-1 font-medium text-lg bg-zinc-900 md:text-2xl text-zinc-300 lg:px-4  tracking-wide rounded-lg mb-1">
                         $
                         {product?.price *
                           cart.products.find(

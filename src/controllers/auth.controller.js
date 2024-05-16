@@ -2,7 +2,7 @@ import User from "../models/user.model.js";
 import Cart from "../models/cart.model.js";
 import bycrypt from "bcryptjs";
 import { createAccessToken } from "../libs/jwt.js";
-import { TOKEN_SECRET } from "../config.js";
+import { TOKEN_SECRET } from "../.env";
 import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
