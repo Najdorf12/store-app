@@ -45,7 +45,6 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body;
   const TOKEN_SECRET = `${process.env.TOKEN_SECRET}`;
-  console.log(TOKEN_SECRET)
   try {
     const userFound = await User.findOne({ email }).populate("cart");
     if (!userFound) return res.status(400).json(["Invalid credentials"]);

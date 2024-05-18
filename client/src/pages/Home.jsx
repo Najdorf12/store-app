@@ -8,15 +8,13 @@ import Cookies from "js-cookie";
 
 const Home = () => {
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     const cookies = Cookies.get();
     if (cookies.token) {
       dispatch(verifyTokenThunk());
-    }    
-  },[]);
-  
-  
+    }
+  }, []);
 
   return (
     <>

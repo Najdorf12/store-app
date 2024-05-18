@@ -16,13 +16,13 @@ const productSchema = new mongoose.Schema(
     price: {
       type: Number,
     },
-    image:{
-      type: String,
-    },
     date: {
       type: Date,
       dafault: Date.now,
     },
+    image: {
+      type:String,
+    }
   },
   {
     timestamps: true,

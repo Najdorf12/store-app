@@ -1,5 +1,5 @@
 import Product from "../models/product.model.js";
-
+import { uploadImage } from "../libs/cloudinary.js";
 export const getProducts = async (req, res) => {
   const products = await Product.find();
   res.json(products);
@@ -7,7 +7,10 @@ export const getProducts = async (req, res) => {
 
 export const createProduct = async (req, res) => {
   const { name, description, category, price, date } = req.body;
-  console.log(req.files)
+  
+  console.log("req.files", req.files);
+  
+  
   const newProduct = new Product({
     name,
     description,
@@ -15,7 +18,12 @@ export const createProduct = async (req, res) => {
     category,
     date,
   });
-
+  
+  if (req.files?.images){
+    const result = uploadImage(req.files.image.tempFilePath)
+    console.log(result)
+  }
+  
   const savedProduct = await newProduct.save();
   res.json(savedProduct);
 };
@@ -39,7 +47,6 @@ export const updateProduct = async (req, res) => {
   if (!product) return res.status(404).json({ message: "Product not found" });
   res.json(product);
 };
-
 
 export const getProductByCategory = async (req, res) => {
   const category = req.params.categoryName;
